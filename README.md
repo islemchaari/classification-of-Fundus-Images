@@ -58,7 +58,7 @@ Prerequisites
 
 ### Installation
 
-git clone https://github.com/your_username/ocular-disease-hqsam.git
+git clone https://github.com/islemchaari/classification-of-Fundus-Images
 
 
 ## 5. Dataset Access via Kaggle
@@ -109,6 +109,7 @@ Learning curves (loss and accuracy)
 
 
 Examples of correct and incorrect predictions
+
 
 
 
