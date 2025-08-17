@@ -1,8 +1,6 @@
 
 # High-Quality Segmentation for Improved Multi-Label Classification of Fundus Images
 
-**Author**: Islem Chaari  
-**Date**: August 2025
 
 
 ## 1. Overview
@@ -11,19 +9,17 @@ This project presents a deep learning framework for the automated classification
 
 ### Main Objectives
 - Segment the optic disc and cup using HQ-SAM fine-tuned for medical imaging.
-- Extract clinically relevant biomarkers (e.g., cup-to-disc ratio, rim thickness).
-- Improve disease prediction using a multimodal ResNet50 classifier.
+- Extract clinically relevant biomarkers.
+- Improve disease prediction using a ResNet50 classifier.
 
 
 ## 2. Repository Structure
 
 
-notebooks/ # Jupyter notebooks for preprocessing, training, evaluation
+Jupyter notebooks for preprocessing, training, evaluation
  segmentation/ # HQ-SAM fine-tuning and segmentation scripts
  classification/ # ResNet50 classifier with biomarker integration
  preprocessing/ # Image normalization and augmentation tools
- utils/ # Custom metrics and visualization tools
- figures/ # Graphs and plots for documentation
  README.tex # LaTeX version of this documentation
 
 
@@ -56,9 +52,6 @@ Prerequisites
   - scikit-learn, matplotlib
   - albumentations, opencv-python
 
-### Installation
-
-git clone https://github.com/islemchaari/classification-of-Fundus-Images
 
 
 ## 5. Dataset Access via Kaggle
@@ -71,44 +64,54 @@ Download the dataset manually or via the Kaggle API.
 
 ## 6. Training Pipeline
 
-Step 1: Fine-Tuning HQ-SAM
-Input: Fundus images and ground-truth masks.
-Model: HQ-SAM with frozen backbone.
-Output: Refined segmentation masks for optic disc and cup.
+This section describes the full pipeline, from segmentation to classification, that you can run end-to-end.
+
+---
+
+### 🔹 Step 1 — Fine-Tuning HQ-SAM (Segmentation)
+
+- **Input:** Fundus images and ground-truth masks  
+- **Model:** HQ-SAM with frozen backbone  
+- **Output:** Refined segmentation masks for the optic disc and cup  
+
+**Additional resources (segmentation model + training dataset + ground-truth masks):**  
+👉 [Google Drive folder](https://drive.google.com/drive/folders/1EKgiTBl2HqMkhrgnPAs0IXaD-1f-Fqda)
+
+---
+
+### 🔹 Step 2 — Biomarker Extraction
+
+From the predicted masks, we compute structural biomarkers:
+
+- Cup-to-disc ratio (vertical, horizontal, area-based)  
+- Neuro-retinal rim area and thickness  
+- Cup eccentricity  
+- Centroid shift (distance between cup and disc centers)  
+
+---
+
+### 🔹 Step 3 — Multi-Label Classification
+
+- **Classifier:** ResNet50 with 8 sigmoid output nodes  
+- **Inputs:** Fundus image (optionally concatenated with biomarkers)  
+- **Loss function:** Binary Cross-Entropy with class weighting  
+
+---
+
+### Project Outputs
+
+The pipeline produces the following results and visualizations:
+
+- Segmentation overlays (disc and cup boundaries)  
+- Confusion matrices for classification performance  
+- Learning curves (training/validation loss and accuracy)  
+- Examples of predictions  
+
+---
+
+With this workflow, segmentation and biomarker extraction enhance disease classification, especially for structure-dependent conditions such as glaucoma.
 
 
-Step 2: Biomarker Extraction
-From the predicted masks:
-Cup-to-disc ratio (vertical, horizontal, area-based)
-
-
-Rim area, thickness
-
-
-Cup eccentricity and centroid shift
-
-
-Step 3: Multi-Label Classification
-Classifier: ResNet50 with 8 sigmoid output nodes.
-
-
-Inputs: Fundus image (optionally concatenated with biomarkers).
-
-
-Loss function: Binary Cross-Entropy with class weighting.
-
-
-The project includes:
-Segmentation overlays (disc and cup)
-
-
-Confusion matrices
-
-
-Learning curves (loss and accuracy)
-
-
-Examples of correct and incorrect predictions
 
 
 
