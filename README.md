@@ -68,7 +68,7 @@ This section describes the full pipeline, from segmentation to classification, t
 
 ---
 
-### 🔹 Step 1 — Fine-Tuning HQ-SAM (Segmentation)
+### Step 1 — Fine-Tuning HQ-SAM (Segmentation)
 
 - **Input:** Fundus images and ground-truth masks  
 - **Model:** HQ-SAM with frozen backbone  
@@ -79,7 +79,7 @@ This section describes the full pipeline, from segmentation to classification, t
 
 ---
 
-### 🔹 Step 2 — Biomarker Extraction
+### Step 2 — Biomarker Extraction
 
 From the predicted masks, we compute structural biomarkers:
 
@@ -90,7 +90,7 @@ From the predicted masks, we compute structural biomarkers:
 
 ---
 
-### 🔹 Step 3 — Multi-Label Classification
+### Step 3 — Multi-Label Classification
 
 - **Classifier:** ResNet50 with 8 sigmoid output nodes  
 - **Inputs:** Fundus image (optionally concatenated with biomarkers)  
@@ -110,6 +110,7 @@ The pipeline produces the following results and visualizations:
 ---
 
 With this workflow, segmentation and biomarker extraction enhance disease classification, especially for structure-dependent conditions such as glaucoma.
+
 
 
 
